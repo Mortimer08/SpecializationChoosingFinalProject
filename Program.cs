@@ -9,19 +9,14 @@
     return arrayOfStings;
 }
 
-int ShortStringsCount(string[] array, int miniLength)
+string[] ShorterStringsArrayCreate(string[] baseArray, int miniLength)
 {
     int shortStringsCount = 0;
-    for (int i = 0; i < array.Length; i++)
+    for (int i = 0; i < baseArray.Length; i++)
     {
-        if (array[i].Length <= miniLength) shortStringsCount++;
+        if (baseArray[i].Length <= miniLength) shortStringsCount++;
     }
-    return shortStringsCount;
-}
-
-string[] ShorterStringsArrayCreate(string[] baseArray, int targetArrayLength, int miniLength)
-{
-    string[] targetArray = new string[targetArrayLength];
+    string[] targetArray = new string[shortStringsCount];
     int j = 0;
     for (int i = 0; i < baseArray.Length; i++)
     {
@@ -30,12 +25,26 @@ string[] ShorterStringsArrayCreate(string[] baseArray, int targetArrayLength, in
     return targetArray;
 }
 
+void PrintArray(string[] array)
+{
+    Console.Write("[");
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write($"\"{array[i]}\"");
+        Console.Write(i < array.Length - 1 ? "," : "");
+    }
+    Console.Write("]");
+}
+
 Console.Write("Введите количество элементов массива: ");
 int nStrings = Convert.ToInt32(Console.ReadLine());
 string[] stringsArray = ArrayInput(nStrings);
 
 int minStringLenght = 3;
-int shorterStings = ShortStringsCount(stringsArray, minStringLenght);
 
-string[]shorterStringsArray = ShorterStringsArrayCreate(stringsArray,shorterStings,minStringLenght);
-Console.WriteLine(shorterStings);
+string[] shorterStringsArray = ShorterStringsArrayCreate(stringsArray, minStringLenght);
+
+PrintArray(stringsArray);
+Console.Write("->");
+PrintArray(shorterStringsArray);
+Console.WriteLine();
